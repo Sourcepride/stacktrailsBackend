@@ -5,6 +5,8 @@ ENV PYTHONUNBUFFERED 1
 
 ARG USERNAME=www
 
+RUN addgroup www
+
 RUN adduser -g "pcluser" \
     -D \
     -s /bin/bash \

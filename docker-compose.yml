@@ -30,7 +30,7 @@ services:
     container_name: app
     restart: always
     volumes:
-      - ./stactrails:/homw/www/app
+      - ./stactrails:/home/www/app
       - trails_static:/app/static/
     ports:
       - 8000:8080
@@ -43,12 +43,12 @@ services:
     build:
       context:  .
       dockerfile: ./docker/app/dockerfile
-      target: celery
+      target: prefork
 
     container_name: prefork
     restart: always
     volumes:
-      - ./stactrails:/homw/www/app
+      - ./stactrails:/home/www/app
       
     depends_on:
       - rabbit_mq
