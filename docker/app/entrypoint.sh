@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh
 
 function db_is_ready(){
 python << END

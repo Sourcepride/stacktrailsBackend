@@ -1,25 +1,29 @@
 services:
   main_db:
     image: postgres:alpine
-    env_file: .env
+    env_file: ./stacktrails/.env
     container_name:  main_db
     volumes:
       # - ./pg_hba.conf:/usr/local/share/postgresql/pg_hba.conf
-      - ./docker/db/psql_init.sh:/docker-entrypoint-initdb.d/psql_init.sh
+      - ./docker/db/psql_init.sql:/docker-entrypoint-initdb.d/psql_init.sql
       - trails_pgdata:/var/lib/postgresql/data
   
   redis_db:
     image:  redis:alpine
     container_name: redis_db
+    env_file: ./stacktrails/.env
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf
 
   rabbit_mq:
     image: rabbitmq:alpine
     container_name: rabbit_mq
+    environment:
+      - HOSTNAME=www
+    hostname: www
     volumes:
       - rabbit_data:/var/lib/rabbitmq/mnesia/rabbit@www
-    env_file: .env
+    env_file: ./stacktrails/.env
 
   app:
     build:
@@ -29,8 +33,9 @@ services:
 
     container_name: app
     restart: always
+    env_file: ./stacktrails/.env
     volumes:
-      - ./stactrails:/home/www/app
+      - ./stacktrails:/home/www/app
       - trails_static:/app/static/
     ports:
       - 8000:8080
@@ -44,11 +49,11 @@ services:
       context:  .
       dockerfile: ./docker/app/dockerfile
       target: prefork
-
+    env_file: ./stacktrails/.env
     container_name: prefork
     restart: always
     volumes:
-      - ./stactrails:/home/www/app
+      - ./stacktrails:/home/www/app
       
     depends_on:
       - rabbit_mq
