@@ -1,0 +1,64 @@
+#python generated
+*.pyc
+__pycache__
+__pycache__/*
+
+# vscode dependencies
+.vscode
+
+# db files
+*.db
+*.sqlite3
+*.sqlite
+geoip_binaries/*
+
+# enviromental variables
+.env
+.env.*
+
+# virtual enviroment
+venv
+venv/
+env
+env/
+
+#Django 
+
+
+
+# my files 
+todo.txt
+dumps.txt
+myuserstory.txt
+
+
+# test
+*.coverage*
+
+# conf
+nginx.*
+
+
+# logs
+*.log
+*.logs
+*.log.*
+*.logs.*
+
+
+# others
+note.txt
+dumps.txt
+
+# media
+media/*
+!/media/template/
+media/template/*
+!/media/template/template.jpg
+!*/README.md
+media/images/profile/*
+media/images/cars/*
+init-mysql/*
+_nginx.lua
+
+init.sh

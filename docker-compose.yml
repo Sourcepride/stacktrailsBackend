@@ -1,0 +1,16 @@
+services:
+  main_db:
+  
+  redis_db:
+
+  rabbit_mq:
+
+  app:
+
+  prefork:
+
+
+
+volumes:
+  
+
