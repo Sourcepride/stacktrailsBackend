@@ -16,6 +16,7 @@ services:
 
   rabbit_mq:
     image: rabbitmq:alpine
+    container_name: rabbit_mq
     volumes:
       - rabbit_data:/var/lib/rabbitmq/mnesia/rabbit@www
     env_file: .env

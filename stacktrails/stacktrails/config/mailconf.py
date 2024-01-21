@@ -1,0 +1,7 @@
+from utils.getenv import env
+
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = int(env("EMAIL_PORT", 465))
+EMAIL_HOST_USER = env("EMAIL_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
+EMAIL_USE_SSL = True
