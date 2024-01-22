@@ -8,7 +8,7 @@ THIRD_PARTIES = [
 ]
 
 PROJECT_APPS = [
-
+    "account.apps.AccountConfig"
 ]
 
 

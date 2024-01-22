@@ -72,6 +72,8 @@ RUN chmod a+x /usr/local/bin/prefork.sh
 
 USER www
 
+# add celery command in run command
+
 FROM base as prod
 
 USER root

@@ -48,10 +48,12 @@ services:
     build:
       context:  .
       dockerfile: ./docker/app/dockerfile
-      target: prefork
+      target: dev
     env_file: ./stacktrails/.env
     container_name: prefork
     restart: always
+    command: >
+      sh -c "celery -A stacktrails worker -l info -P prefork"
     volumes:
       - ./stacktrails:/home/www/app
       
@@ -59,8 +61,7 @@ services:
       - rabbit_mq
       - main_db
       - redis_db
-
-
+      - app
 
 
 
