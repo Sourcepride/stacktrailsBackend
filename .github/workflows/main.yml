@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Run docker-compose
+        run: |
+          docker-compose -f ./stacktrailsbackend/docker-compose.yml up -d
+          docker-compose -f ./stacktrailsbackend/docker-compose.yml ps
+          docker-compose -f ./stacktrailsbackend/docker-compose.yml down
+
+      - name: Test and submit coverage report
+        run: |
+          docker build -t stacktrails:master .
+          docker run --rm -v $(pwd)/stacktrails/:/usr/src/stacktrails stacktrails:master ./pytest.sh
+          pip install coveralls
+          cd stacktrails && coveralls --service=github
