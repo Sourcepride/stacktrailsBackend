@@ -1,0 +1,72 @@
+services:
+  main_db:
+    image: postgres:alpine
+    env_file: ./stacktrails/.env
+    container_name:  main_db
+    volumes:
+      # - ./pg_hba.conf:/usr/local/share/postgresql/pg_hba.conf
+      - ./docker/db/psql_init.sql:/docker-entrypoint-initdb.d/psql_init.sql
+      - trails_pgdata:/var/lib/postgresql/data
+  
+  redis_db:
+    image:  redis:alpine
+    container_name: redis_db
+    env_file: ./stacktrails/.env
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+  rabbit_mq:
+    image: rabbitmq:alpine
+    container_name: rabbit_mq
+    environment:
+      - HOSTNAME=www
+    hostname: www
+    volumes:
+      - rabbit_data:/var/lib/rabbitmq/mnesia/rabbit@www
+    env_file: ./stacktrails/.env
+
+  app:
+    build:
+      context:  .
+      dockerfile: ./docker/app/dockerfile
+      target: dev
+
+    container_name: app
+    restart: always
+    env_file: ./stacktrails/.env
+    volumes:
+      - ./stacktrails:/home/www/app
+      - trails_static:/app/static/
+    ports:
+      - 8080:8000
+      
+    depends_on:
+      - main_db
+      - redis_db
+
+  prefork:
+    build:
+      context:  .
+      dockerfile: ./docker/app/dockerfile
+      target: dev
+    env_file: ./stacktrails/.env
+    container_name: prefork
+    restart: always
+    command: >
+      sh -c "celery -A stacktrails worker -l info -P prefork"
+    volumes:
+      - ./stacktrails:/home/www/app
+      
+    depends_on:
+      - rabbit_mq
+      - main_db
+      - redis_db
+      - app
+
+
+
+volumes:
+  trails_pgdata:
+  trails_static:
+  rabbit_data:
+
