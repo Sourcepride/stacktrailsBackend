@@ -38,7 +38,7 @@ services:
       - ./stacktrails:/home/www/app
       - trails_static:/app/static/
     ports:
-      - 8000:8080
+      - 8080:8000
       
     depends_on:
       - main_db
