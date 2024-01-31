@@ -25,9 +25,9 @@ jobs:
 
       - name: Run docker-compose
         run: |
-          docker compose -f $(pwd) up -
-          docker compose -f $(pwd) ps
-          docker compose -f $(pwd) down
+          docker compose -f up -
+          docker compose -f ps
+          docker compose -f down
 
       - name: Test and submit coverage report
         run: |
