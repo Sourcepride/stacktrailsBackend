@@ -40,7 +40,7 @@ jobs:
           echo "${{secrets.REDIS_PORT}}" >> ././stacktrails/.env
           echo "${{secrets.REDIS_URI}}" >> ././stacktrails/.env
           echo $(pwd)
-          ls -l
+          ls -l ././stacktrails
 
 
 
