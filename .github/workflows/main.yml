@@ -24,24 +24,22 @@ jobs:
             ${{ runner.os }}-buildx-
       - name:  Create env file
         run: |
-          echo "${{secrets.SECRET_KEY}}" >> .env
-          echo "${{secrets.POSTGRES_PASSWORD}}" >> .env
-          echo "${{secrets.BROKER_URL}}" >> .env
-          echo "${{secrets.RABBITMQ_DEFAULT_PASS}}" >> .env
-          echo  "HOSTNAME=www" >> .env
-          echo "RABBITMQ_DEFAULT_USER=www" >> .env
-          echo "${{secrets.RESULT_BACKEND}}" >> .env
-          echo "${{secrets.DB_USER}}" >> .env
-          echo "${{secrets.DB_PASSWORD}}" >> .env
-          echo "${{secrets.DB_HOST}}" >> .env
-          echo "${{secrets.DB_NAME}}" >> .env
-          echo "${{secrets.REDIS_HOST}}" >> .env
-          echo "${{secrets.REDIS_PORT}}" >> .env
-          echo "${{secrets.REDIS_URI}}" >> .env
-<<<<<<< HEAD
-=======
+          touch ././stacktrails/.env
+          echo "${{secrets.SECRET_KEY}}" >> ././stacktrails/.env
+          echo "${{secrets.POSTGRES_PASSWORD}}" >> ././stacktrails/.env
+          echo "${{secrets.BROKER_URL}}" >> ././stacktrails/.env
+          echo "${{secrets.RABBITMQ_DEFAULT_PASS}}" >> ././stacktrails/.env
+          echo  "HOSTNAME=www" >> ././stacktrails/.env
+          echo "RABBITMQ_DEFAULT_USER=www" >> ././stacktrails/.env
+          echo "${{secrets.RESULT_BACKEND}}" >> ././stacktrails/.env
+          echo "${{secrets.DB_USER}}" >> ././stacktrails/.env
+          echo "${{secrets.DB_PASSWORD}}" >> ././stacktrails/.env
+          echo "${{secrets.DB_HOST}}" >> ././stacktrails/.env
+          echo "${{secrets.DB_NAME}}" >> ././stacktrails/.env
+          echo "${{secrets.REDIS_HOST}}" >> ././stacktrails/.env
+          echo "${{secrets.REDIS_PORT}}" >> ././stacktrails/.env
+          echo "${{secrets.REDIS_URI}}" >> ././stacktrails/.env
           echo $(pwd)
->>>>>>> 0796ad7d2292cb6b96f80ac6a3c99f578be9b306
           ls -l
 
 
