@@ -39,6 +39,7 @@ jobs:
           echo "${{secrets.REDIS_PORT}}" >> .env
           echo "${{secrets.REDIS_URI}}" >> .env
           echo $(pwd)
+          ls -l
 
 
 
