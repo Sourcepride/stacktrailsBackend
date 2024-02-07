@@ -28,7 +28,7 @@ services:
   app:
     build:
       context:  .
-      dockerfile: ./docker/app/dockerfile
+      dockerfile: ./docker/app/Dockerfile
       target: dev
 
     container_name: app
@@ -47,7 +47,7 @@ services:
   prefork:
     build:
       context:  .
-      dockerfile: ./docker/app/dockerfile
+      dockerfile: ./docker/app/Dockerfile
       target: dev
     env_file: ./stacktrails/.env
     container_name: prefork
