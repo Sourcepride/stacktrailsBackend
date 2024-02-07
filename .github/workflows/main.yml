@@ -22,6 +22,24 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      - name:  Create env file
+        run: |
+          echo "${{secrets.SECRET_KEY}}" >> .env
+          echo "${{secrets.POSTGRES_PASSWORD}}" >> .env
+          echo "${{secrets.BROKER_URL}}" >> .env
+          echo "${{secrets.RABBITMQ_DEFAULT_PASS}}" >> .env
+          echo  "HOSTNAME=www" >> .env
+          echo "RABBITMQ_DEFAULT_USER=www" >> .env
+          echo "${{secrets.RESULT_BACKEND}}" >> .env
+          echo "${{secrets.DB_USER}}" >> .env
+          echo "${{secrets.DB_PASSWORD}}" >> .env
+          echo "${{secrets.DB_HOST}}" >> .env
+          echo "${{secrets.DB_NAME}}" >> .env
+          echo "${{secrets.REDIS_HOST}}" >> .env
+          echo "${{secrets.REDIS_PORT}}" >> .env
+          echo "${{secrets.REDIS_URI}}" >> .env
+
+
 
       - name: Run docker-compose
         run: |
