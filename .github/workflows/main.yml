@@ -53,7 +53,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          echo "===================================================================================x ${{ secrets.REDIS_URI }}  ${{ secrets.GITHUB_TOKEN }} ${{github.token}}"
           docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
           
