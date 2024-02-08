@@ -15,3 +15,6 @@ DATABASES = {
     },
 }
 
+
+
+TEST_DATABASE_PREFIX = "test_"
