@@ -25,6 +25,7 @@ jobs:
       - name:  Create env file
         run: |
           touch ././stacktrails/.env
+          echo "dev=true" >> ././stacktrails/.env
           echo "${{secrets.SECRET_KEY}}" >> ././stacktrails/.env
           echo "${{secrets.POSTGRES_PASSWORD}}" >> ././stacktrails/.env
           echo "${{secrets.BROKER_URL}}" >> ././stacktrails/.env
