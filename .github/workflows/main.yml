@@ -51,9 +51,9 @@ jobs:
 
       - name: Test and submit coverage report
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          echo "===================================================================================x ${{ secrets.REDIS_URI }}"
+          echo "===================================================================================x ${{ secrets.REDIS_URI }}  ${{ secrets.GITHUB_TOKEN }} ${{github.token}}"
           docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
           
