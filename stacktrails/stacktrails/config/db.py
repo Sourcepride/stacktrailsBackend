@@ -18,4 +18,6 @@ DATABASES = {
     },
 }
 
-print("{============================}",  env("DB_NAME"))
+import os
+
+print("{============================}",  env("DB_NAME"),  os.getenv("DB_NAME"),  os.environ.get("DB_NAME"), "\n\n\n\n\n\n",  os.environ)
