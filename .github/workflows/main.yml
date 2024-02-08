@@ -50,13 +50,10 @@ jobs:
           docker compose -f ././docker-compose.yml ps
 
       - name: Test and submit coverage report
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # RESULT_BACKEND:  ${{secrets.DB_NAME}}
         run: |
           docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
-        # pip install coveralls
-        # cd stacktrails && coveralls --service=github
+          pip install coveralls
+          cd stacktrails && coveralls --service=github
 
       - name: bring down docker-compose
         run: docker compose -f ././docker-compose.yml down
