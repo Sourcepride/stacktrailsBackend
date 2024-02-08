@@ -8,8 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    env:
-      DB_NAME: ${{secrets.DB_NAME}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -42,6 +40,7 @@ jobs:
           echo "REDIS_HOST=${{secrets.REDIS_HOST}}" >> ././stacktrails/.env
           echo "REDIS_PORT=${{secrets.REDIS_PORT}}" >> ././stacktrails/.env
           echo "REDIS_URI=${{secrets.REDIS_URI}}" >> ././stacktrails/.env
+          echo "GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}" >> ././stacktrails/.env
 
 
       - name: Run docker-compose
@@ -49,10 +48,15 @@ jobs:
           docker compose -f ././docker-compose.yml up -d
           docker compose -f ././docker-compose.yml ps
 
+
       - name: Test and submit coverage report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "===================================================================================x ${{ secrets.REDIS_URI }}"
           docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
+          
           cd stacktrails && coveralls --service=github
 
       - name: bring down docker-compose
