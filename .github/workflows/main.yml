@@ -44,10 +44,12 @@ jobs:
 
       - name: Run docker-compose
         run: |
-          docker-compose -f ././docker-compose.yml up -d
-          docker-compose -f ././docker-compose.yml ps
+          docker compose -f ././docker-compose.yml up -d
+          docker compose -f ././docker-compose.yml ps
 
       - name: Test and submit coverage report
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
