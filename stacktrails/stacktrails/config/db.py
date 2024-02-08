@@ -12,9 +12,10 @@ DATABASES = {
         "PASSWORD": env("DB_PASSWORD"),
         "PORT": 5432,
         "HOST": env("DB_HOST"),
+        "TEST": {
+            "NAME": env("DB_NAME")
+        }
     },
 }
 
-
-
-TEST_DATABASE_PREFIX = "test_"
+print("{============================}",  env("DB_NAME"))
