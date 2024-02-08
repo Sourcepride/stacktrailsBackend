@@ -14,4 +14,3 @@ DATABASES = {
         "HOST": env("DB_HOST"),
     },
 }
-

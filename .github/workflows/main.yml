@@ -22,16 +22,41 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      - name:  Create env file
+        run: |
+          touch ././stacktrails/.env
+          echo "dev=true" >> ././stacktrails/.env
+          echo "SECRET_KEY=${{secrets.SECRET_KEY}}" >> ././stacktrails/.env
+          echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> ././stacktrails/.env
+          echo "BROKER_URL=${{secrets.BROKER_URL}}" >> ././stacktrails/.env
+          echo "RABBITMQ_DEFAULT_PASS=${{secrets.RABBITMQ_DEFAULT_PASS}}" >> ././stacktrails/.env
+          echo  "HOSTNAME=www" >> ././stacktrails/.env
+          echo "RABBITMQ_DEFAULT_USER=www" >> ././stacktrails/.env
+          echo "RESULT_BACKEND=${{secrets.RESULT_BACKEND}}" >> ././stacktrails/.env
+          echo "DB_USER=${{secrets.DB_USER}}" >> ././stacktrails/.env
+          echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> ././stacktrails/.env
+          echo "DB_HOST=${{secrets.DB_HOST}}" >> ././stacktrails/.env
+          echo "DB_NAME=${{secrets.DB_NAME}}" >> ././stacktrails/.env
+          echo "REDIS_HOST=${{secrets.REDIS_HOST}}" >> ././stacktrails/.env
+          echo "REDIS_PORT=${{secrets.REDIS_PORT}}" >> ././stacktrails/.env
+          echo "REDIS_URI=${{secrets.REDIS_URI}}" >> ././stacktrails/.env
+          echo "GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}" >> ././stacktrails/.env
+
 
       - name: Run docker-compose
         run: |
-          docker-compose -f ./stacktrailsbackend/docker-compose.yml up -d
-          docker-compose -f ./stacktrailsbackend/docker-compose.yml ps
-          docker-compose -f ./stacktrailsbackend/docker-compose.yml down
+          docker compose -f ././docker-compose.yml up -d
+          docker compose -f ././docker-compose.yml ps
+
 
       - name: Test and submit coverage report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          docker build -t stacktrails:master .
-          docker run --rm -v $(pwd)/stacktrails/:/usr/src/stacktrails stacktrails:master ./pytest.sh
+          docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
+          
           cd stacktrails && coveralls --service=github
+
+      - name: bring down docker-compose
+        run: docker compose -f ././docker-compose.yml down
