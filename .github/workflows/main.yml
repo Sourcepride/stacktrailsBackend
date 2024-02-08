@@ -49,7 +49,7 @@ jobs:
 
       - name: Test and submit coverage report
         run: |
-          docker compose exec <app python manage.py test --settings=stacktrails.settings -v 1
+          docker compose exec app python manage.py test --settings=stacktrails.settings -v 1
           pip install coveralls
           cd stacktrails && coveralls --service=github
 
