@@ -39,8 +39,6 @@ jobs:
           echo "${{secrets.REDIS_HOST}}" >> ././stacktrails/.env
           echo "${{secrets.REDIS_PORT}}" >> ././stacktrails/.env
           echo "${{secrets.REDIS_URI}}" >> ././stacktrails/.env
-          echo $(pwd)
-          ls -l ././stacktrails
 
 
 
@@ -52,7 +50,7 @@ jobs:
 
       - name: Test and submit coverage report
         run: |
-          docker build -t stacktrails:master .
+          docker build -f $(pwd)/docker/app/Dockerfile -t  stacktrails:master .
           docker run --rm -v $(pwd)/stacktrails/:/usr/src/stacktrails stacktrails:master ./pytest.sh
           pip install coveralls
           cd stacktrails && coveralls --service=github
