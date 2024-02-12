@@ -1,5 +1,3 @@
-
-
 def filter_domain(domain, request, **kwargs):
     # key_prepend = "AXTE8RS$1-domain-"  # Do not Alter
     # cache_proxy = RedisCacheController()
