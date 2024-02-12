@@ -7,9 +7,7 @@ THIRD_PARTIES = [
     "dynamic_host",
 ]
 
-PROJECT_APPS = [
-    "account.apps.AccountConfig"
-]
+PROJECT_APPS = ["account.apps.AccountConfig"]
 
 
 INSTALLED_APPS = [

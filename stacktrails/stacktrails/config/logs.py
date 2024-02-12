@@ -32,7 +32,7 @@ LOGGING = {
             "filename": "./logs/celery.log",
             "maxBytes": (1024 * 30),
             "backupCount": 3,
-            "mode": 'a'
+            "mode": "a",
         },
         "mail_admins": {
             "level": "ERROR",

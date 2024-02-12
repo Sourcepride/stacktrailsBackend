@@ -20,7 +20,7 @@ way as they are imported all over the project
 """
 
 
-def inmemory_wrapper(image, default_path: str):
+def inmemory_wrapper(image, default_path: str = ""):
     # TODO: find how to reduce get_mail_credentialssize of ImageFieldFile
     if (not image) or image == default_path or isinstance(image, ImageFieldFile):
         return image

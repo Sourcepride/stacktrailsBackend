@@ -2,7 +2,9 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class CustomManager(BaseUserManager):
-    def create_user(self, email, first_name=None, last_name=None, password=None, **kwargs):
+    def create_user(
+        self, email, first_name=None, last_name=None, password=None, **kwargs
+    ):
         user_instance = self.model(
             email=email, first_name=first_name, last_name=last_name, **kwargs
         )
